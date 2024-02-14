@@ -1,0 +1,7 @@
+select {
+    height: 2em;
+    border-radius: 5px;
+    border-color: aqua;
+    background-color: white;
+    margin-left: 5px;
+}

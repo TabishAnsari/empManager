@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}Actions{% endblock %}
+
+{% block body %}
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="fName" class="form-label">First Name:</label>
+            <input type="text" required name="firstName" class="form-control" id="fName" placeholder="First Name">
+        </div>
+        <div class="mb-3">
+            <label for="lName" class="form-label">Last Name:</label>
+            <input type="text" required id="lName" class="form-control" name="lastName" placeholder="Last Name">
+        </div>
+        <div class="mb-3">
+            <label for="pos" class="form-label">Role: </label>
+            <select class="form-select" name="position" required id="pos">
+                <option value=""selected disabled>Select Role</option>
+                {% for position in positions %}
+                    <option value="{{position}}">{{position}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="dep" class="form-label">Department: </label>
+            <select class="form-select" name="department" required id="pos">
+                <option value="" selected disabled>Select Department</option>
+                {% for department in departments %}
+                    <option value="{{department}}">{{department}}</option>
+                {% endfor %}
+              </select>
+        </div>
+        <div class="mb-3">
+            <label for="jDate" class="form-label">Date of Joining:</label>
+            <input type="date" required name="joiningDate" class="form-control" id="jDate">
+        </div>
+        <div class="mb-3">
+            <label for="ctc" class="form-label">CTC:</label>
+            <input type="number" required name="ctc" class="form-control" id="ctc" placeholder="Enter CTC">
+        </div>
+        <div class="mb-3">
+            <label for="man" class="form-label">Manager: </label>
+            <select class="form-select" name="manager" required id="man">
+                <option value="" selected disabled>Select Manager</option>
+                {% for manager in managers %}
+                    <option value="{{manager}}">{{manager}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+
+{% endblock %}
