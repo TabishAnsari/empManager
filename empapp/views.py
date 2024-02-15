@@ -71,13 +71,16 @@ def edit(request):
         employee.firstName = data['firstName']
         employee.lastName = data['lastName']
         if 'department' in data:
-            employee.department = data['department']
+            department = Department.objects.get(departmentName=data['department'] )
+            employee.department = department
         if 'position' in data:
-            employee.position = data['position']
+            position = Position.objects.get(positions=data['position'])
+            employee.position = position
         employee.joiningDate = data['joiningDate']
         employee.ctc = data['ctc']
         if 'manager' in data:
-            employee.manager = data['manager']
+            manager = User.objects.get(username=data['manager'])
+            employee.manager = manager
         employee.save()
         return HttpResponseRedirect(reverse(index))
 
