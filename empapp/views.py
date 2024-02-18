@@ -86,8 +86,11 @@ def edit(request):
 
 @login_required(login_url='login')
 def search(request):
-    searchResult = Employee.objects.get(id=request.GET['id'])
-    return render(request, 'search.html', { 'employee': searchResult })
+    try:
+        searchResult = Employee.objects.get(id=request.GET['id'])
+        return render(request, 'search.html', { 'employee': searchResult })
+    except:
+        return render(request,'search.html', {'message': "No results found!"} )
 
 @login_required(login_url='login')
 def delete(request):

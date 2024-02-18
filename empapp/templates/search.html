@@ -3,48 +3,55 @@
 {% block title %}Home{% endblock %}
 
 {%block body %}
-    <div class="main container container-fluid">
-        <table class="table mb-5">
-            <thead>
-                <tr>
-                    <th scope="col">ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Department</th>
-                    <th scope="col">Joining Date</th>
-                    <th scope="col">CTC</th>
-                    <th scope="col">Manager</th>
-                    <th class="pl-5" scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <th scope="row">{{ employee.id }}</th>
-                    <td>{{ employee.firstName }} {{employee.lastName}}</td>
-                    <td> {{ employee.position }} </td>
-                    <td> {{ employee.department }} </td>
-                    <td> {{ employee.joiningDate }} </td>
-                    <td> {{ employee.ctc }} </td>
-                    <td> {{ employee.manager }} </td>
-                    <td>
-                        <div class="row justify-content-center align-items-center">
-                            <form class="pr-2" action="{% url 'edit' %}" method="GET">
-                                <input type="hidden" value="{{employee.id}}" name="id" >
-                                <button class="btn btn-info mx-auto" type="submit">Edit</button>
-                            </form>
-                            <form action="{% url 'delete' %}" method="POST" onsubmit="return confirm ('Are you sure?')">
-                                {% csrf_token %}
-                                <input type="hidden" name="action" value="{{ employee.id }}">
-                                <button class="btn btn-danger" type="submit">Delete</button>
-                            </form>
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-        <hr class="mb-3">
+    {% if message %}
+        <h3 class="ml-5">{{message}}</h3>
         <a href="{% url 'index' %}">
-            <button class="btn btn-danger mx-auto">Back</button>
+            <button class="btn btn-danger ml-5 mt-5">Back</button>
         </a>
-    </div>
+    {% else %}
+        <div class="main container container-fluid">
+            <table class="table mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Role</th>
+                        <th scope="col">Department</th>
+                        <th scope="col">Joining Date</th>
+                        <th scope="col">CTC</th>
+                        <th scope="col">Manager</th>
+                        <th class="pl-5" scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">{{ employee.id }}</th>
+                        <td>{{ employee.firstName }} {{employee.lastName}}</td>
+                        <td> {{ employee.position }} </td>
+                        <td> {{ employee.department }} </td>
+                        <td> {{ employee.joiningDate }} </td>
+                        <td> {{ employee.ctc }} </td>
+                        <td> {{ employee.manager }} </td>
+                        <td>
+                            <div class="row justify-content-center align-items-center">
+                                <form class="pr-2" action="{% url 'edit' %}" method="GET">
+                                    <input type="hidden" value="{{employee.id}}" name="id" >
+                                    <button class="btn btn-info mx-auto" type="submit">Edit</button>
+                                </form>
+                                <form action="{% url 'delete' %}" method="POST" onsubmit="return confirm ('Are you sure?')">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="{{ employee.id }}">
+                                    <button class="btn btn-danger" type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <hr class="mb-3">
+            <a href="{% url 'index' %}">
+                <button class="btn btn-danger mx-auto">Back</button>
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}
